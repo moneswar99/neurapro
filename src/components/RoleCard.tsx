@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Role } from '../types/recruitment';
 import { TeamIcon } from './TeamIcons';
-import { Check, Star, Award } from 'lucide-react';
+import { Check, Star, Award, ArrowRight } from 'lucide-react';
 
 interface RoleCardProps {
   role: Role;
@@ -9,6 +9,7 @@ interface RoleCardProps {
   secondChoice: string | null;
   onSelectFirstChoice: (roleName: string) => void;
   onSelectSecondChoice: (roleName: string) => void;
+  onProceedToForm?: () => void;
 }
 
 export const RoleCard: React.FC<RoleCardProps> = ({
@@ -17,31 +18,32 @@ export const RoleCard: React.FC<RoleCardProps> = ({
   secondChoice,
   onSelectFirstChoice,
   onSelectSecondChoice,
+  onProceedToForm,
 }) => {
   const isFirst = firstChoice === role.role_name;
   const isSecond = secondChoice === role.role_name;
 
   return (
     <div
-      className={`relative group rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between ${
+      className={`relative group rounded-[28px] p-6 sm:p-7 transition-all duration-300 flex flex-col justify-between border-[3px] ${
         isFirst
-          ? 'bg-slate-900/90 border-2 border-cyan-400 shadow-[0_0_25px_rgba(56,189,248,0.35)] scale-[1.02]'
+          ? 'bg-[#EBF5EE] border-[#527A58] shadow-[7px_7px_0px_#527A58] -translate-y-1'
           : isSecond
-          ? 'bg-slate-900/90 border-2 border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.35)] scale-[1.02]'
-          : 'glass-card hover:bg-slate-800/80 border-slate-700/60'
+          ? 'bg-[#FFF8F0] border-[#D96B4C] shadow-[7px_7px_0px_#D96B4C] -translate-y-1'
+          : 'bg-[#FFFDF7] border-[#5C3928] shadow-[5px_5px_0px_#5C3928] hover:-translate-y-1.5 hover:shadow-[7px_7px_0px_#5C3928]'
       }`}
     >
       {/* Top Preference Badges */}
-      <div className="absolute -top-3 right-4 flex gap-2 z-10">
+      <div className="absolute -top-3.5 right-5 flex gap-2 z-10">
         {isFirst && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-cyan-500 text-slate-950 shadow-md">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#527A58] text-white border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928] font-cartoon animate-bounce">
             <Award className="w-3.5 h-3.5" />
             🥇 1st Choice
           </span>
         )}
         {isSecond && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-slate-950 shadow-md">
-            <Star className="w-3.5 h-3.5" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#D96B4C] text-white border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928] font-cartoon">
+            <Star className="w-3.5 h-3.5 fill-white" />
             🥈 2nd Choice
           </span>
         )}
@@ -51,42 +53,46 @@ export const RoleCard: React.FC<RoleCardProps> = ({
         {/* Header Icon & Title */}
         <div className="flex items-start gap-4 mb-4">
           <div
-            className={`p-3.5 rounded-xl transition-colors ${
+            className={`p-3.5 rounded-2xl border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928] transition-transform group-hover:rotate-3 ${
               isFirst
-                ? 'bg-cyan-500/20 text-cyan-300 ring-1 ring-cyan-400/50'
+                ? 'bg-[#527A58] text-white'
                 : isSecond
-                ? 'bg-amber-500/20 text-amber-300 ring-1 ring-amber-400/50'
-                : 'bg-slate-800/90 text-cyan-400 group-hover:bg-slate-700'
+                ? 'bg-[#D96B4C] text-white'
+                : 'bg-[#FFF5DF] text-[#5C3928]'
             }`}
           >
             <TeamIcon name={role.icon_name} className="w-7 h-7" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">
+            <h3 className="text-lg sm:text-xl font-black text-[#3D2316] font-cartoon group-hover:text-[#527A58] transition-colors leading-snug">
               {role.role_name}
             </h3>
-            <span className="text-xs font-medium text-slate-400">NeuraMorphix Team</span>
+            <span className="text-xs font-black uppercase text-[#A96F45] tracking-wider font-cartoon">
+              NeuraMorphix Squad
+            </span>
           </div>
         </div>
 
         {/* Short Description */}
-        <p className="text-sm text-slate-300 mb-5 leading-relaxed">{role.description}</p>
+        <p className="text-xs sm:text-sm text-[#5C3928] mb-5 leading-relaxed font-medium">
+          {role.description}
+        </p>
 
-        {/* Relevant Skills */}
+        {/* Relevant Skills Chips */}
         <div className="mb-6">
-          <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
-            Relevant Skills
+          <h4 className="text-[10px] font-black text-[#A96F45] uppercase tracking-wider mb-2 font-cartoon">
+            Relevant Stacks &amp; Skills
           </h4>
           <div className="flex flex-wrap gap-1.5">
             {role.skills.map((skill, idx) => (
               <span
                 key={idx}
-                className={`text-xs px-2.5 py-1 rounded-md border font-medium ${
+                className={`text-xs px-2.5 py-1 rounded-xl border font-bold ${
                   isFirst
-                    ? 'bg-cyan-950/60 border-cyan-700/50 text-cyan-200'
+                    ? 'bg-white border-[#527A58] text-[#527A58]'
                     : isSecond
-                    ? 'bg-amber-950/60 border-amber-700/50 text-amber-200'
-                    : 'bg-slate-800/80 border-slate-700/80 text-slate-300'
+                    ? 'bg-white border-[#D96B4C] text-[#D96B4C]'
+                    : 'bg-[#FFF5DF] border-[#5C3928]/40 text-[#5C3928]'
                 }`}
               >
                 {skill}
@@ -96,15 +102,15 @@ export const RoleCard: React.FC<RoleCardProps> = ({
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-slate-800">
+      {/* Action Choice Buttons */}
+      <div className="grid grid-cols-2 gap-2.5 pt-4 border-t-2 border-dashed border-[#5C3928]/20">
         <button
           type="button"
           onClick={() => onSelectFirstChoice(role.role_name)}
-          className={`px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+          className={`px-3 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider font-cartoon flex items-center justify-center gap-1.5 border-2 border-[#5C3928] transition-all cursor-pointer ${
             isFirst
-              ? 'bg-cyan-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/30 ring-2 ring-cyan-300'
-              : 'bg-slate-800/90 text-slate-300 hover:bg-cyan-950/50 hover:text-cyan-300 border border-slate-700 hover:border-cyan-500/50'
+              ? 'bg-[#527A58] text-white shadow-[3px_3px_0px_#5C3928] scale-102'
+              : 'bg-[#FFFDF7] text-[#5C3928] hover:bg-[#527A58] hover:text-white shadow-[2px_2px_0px_#5C3928]'
           }`}
         >
           {isFirst ? (
@@ -113,17 +119,17 @@ export const RoleCard: React.FC<RoleCardProps> = ({
               Selected 1st
             </>
           ) : (
-            'Select as 1st Choice'
+            'Select as 1st'
           )}
         </button>
 
         <button
           type="button"
           onClick={() => onSelectSecondChoice(role.role_name)}
-          className={`px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+          className={`px-3 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider font-cartoon flex items-center justify-center gap-1.5 border-2 border-[#5C3928] transition-all cursor-pointer ${
             isSecond
-              ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/30 ring-2 ring-amber-300'
-              : 'bg-slate-800/90 text-slate-300 hover:bg-amber-950/50 hover:text-amber-300 border border-slate-700 hover:border-amber-500/50'
+              ? 'bg-[#D96B4C] text-white shadow-[3px_3px_0px_#5C3928] scale-102'
+              : 'bg-[#FFFDF7] text-[#5C3928] hover:bg-[#D96B4C] hover:text-white shadow-[2px_2px_0px_#5C3928]'
           }`}
         >
           {isSecond ? (
@@ -132,10 +138,21 @@ export const RoleCard: React.FC<RoleCardProps> = ({
               Selected 2nd
             </>
           ) : (
-            'Select as 2nd Choice'
+            'Select as 2nd'
           )}
         </button>
       </div>
+
+      {isFirst && onProceedToForm && (
+        <button
+          type="button"
+          onClick={onProceedToForm}
+          className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-[#527A58] hover:bg-[#436749] text-white text-xs font-black uppercase font-cartoon flex items-center justify-center gap-2 border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928] hover:scale-[1.02] transition-all cursor-pointer animate-fadeIn"
+        >
+          <span>Proceed to 2. Personal Details</span>
+          <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+        </button>
+      )}
     </div>
   );
 };

@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DatabaseService } from './services/db';
-import { NeuraMorphixLogo } from './components/NeuraMorphixLogo';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { RoleSelectionSection } from './components/RoleSelectionSection';
 import { ApplicationForm } from './components/ApplicationForm';
 import { StatusTracker } from './components/StatusTracker';
 import { AdminDashboard } from './components/AdminDashboard';
+import { SelectionRoadmap } from './components/SelectionRoadmap';
+import { FAQSection } from './components/FAQSection';
+import { WeBareBearsMascot } from './components/WeBareBearsMascot';
+import { NeuraMorphixLogo } from './components/NeuraMorphixLogo';
 import {
-  Sparkles,
   ArrowRight,
   ArrowLeft,
   ShieldCheck,
@@ -20,6 +22,13 @@ import {
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<'home' | 'apply' | 'track' | 'admin'>('home');
+
+  // Automatically scroll to top whenever navigation tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [currentTab]);
 
   // Selected Preferences state
   const [firstChoice, setFirstChoice] = useState<string | null>(null);
@@ -48,67 +57,95 @@ export function App() {
     setSecondChoice(null);
   };
 
+  const handleSelectTab = (tab: 'home' | 'apply' | 'track' | 'admin') => {
+    setCurrentTab(tab);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+
   const handleProceedToForm = () => {
     setCurrentTab('apply');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleTrackStatusDirectly = (appId: string) => {
     setTrackedAppId(appId);
     setCurrentTab('track');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950 relative">
+    <div className="min-h-screen flex flex-col bg-[#FFFDF7] text-[#3D2316] font-sans selection:bg-[#527A58] selection:text-white relative">
       {/* Navigation Header */}
-      <Header currentTab={currentTab} onSelectTab={setCurrentTab} />
+      <Header currentTab={currentTab} onSelectTab={handleSelectTab} />
 
       {/* INTERACTIVE STEP NAVIGATION BAR — desktop only (mobile uses header tab bar) */}
-      <div className="hidden md:block bg-slate-900/90 border-b border-slate-800/80 py-3 px-4 shadow-md sticky top-20 z-30 backdrop-blur-md">
+      <div className="hidden md:block bg-[#FFF5DF]/95 border-b-2 border-[#5C3928] py-3 px-4 shadow-[0_4px_16px_rgba(92,57,40,0.06)] sticky top-20 z-30 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 sm:gap-6 text-xs font-bold">
+          <div className="flex items-center gap-2 sm:gap-6 text-xs font-black uppercase font-cartoon">
             <button
               type="button"
               onClick={() => setCurrentTab('home')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-2xl border-2 border-[#5C3928] transition-all cursor-pointer ${
                 currentTab === 'home'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 font-extrabold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-[#527A58] text-white shadow-[3px_3px_0px_#5C3928] scale-105'
+                  : 'bg-[#FFFDF7] text-[#5C3928] hover:bg-[#FFF5DF]'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-slate-950/40 flex items-center justify-center text-[10px]">1</span>
-              <span>Select Roles</span>
+              <span className="w-5 h-5 rounded-full bg-[#5C3928] text-[#FFFDF7] flex items-center justify-center text-[10px] font-bold">1</span>
+              <span>1. Select Roles</span>
             </button>
 
-            <span className="text-slate-600 font-mono">→</span>
+            <span className="text-[#A96F45] font-black font-mono">→</span>
 
             <button
               type="button"
-              onClick={() => setCurrentTab('apply')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+              onClick={() => {
+                if (firstChoice) {
+                  setCurrentTab('apply');
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                  document.documentElement.scrollTop = 0;
+                  document.body.scrollTop = 0;
+                } else {
+                  const el = document.getElementById('roles-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-2xl border-2 border-[#5C3928] transition-all cursor-pointer ${
                 currentTab === 'apply'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 font-extrabold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-[#527A58] text-white shadow-[3px_3px_0px_#5C3928] scale-105'
+                  : currentTab === 'home' && firstChoice
+                  ? 'bg-[#527A58] text-white shadow-[3px_3px_0px_#5C3928] animate-step-blink'
+                  : 'bg-[#FFFDF7] text-[#5C3928] hover:bg-[#FFF5DF]'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-slate-950/40 flex items-center justify-center text-[10px]">2</span>
-              <span>Fill Details</span>
+              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${currentTab === 'home' && firstChoice ? 'bg-white text-[#527A58]' : 'bg-[#5C3928] text-[#FFFDF7]'}`}>2</span>
+              <span>2. Personal Details</span>
             </button>
 
-            <span className="text-slate-600 font-mono">→</span>
+            <span className="text-[#A96F45] font-black font-mono">→</span>
 
             <button
               type="button"
-              onClick={() => setCurrentTab('track')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+              onClick={() => {
+                setCurrentTab('track');
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-2xl border-2 border-[#5C3928] transition-all cursor-pointer ${
                 currentTab === 'track'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 font-extrabold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-[#527A58] text-white shadow-[3px_3px_0px_#5C3928] scale-105'
+                  : 'bg-[#FFFDF7] text-[#5C3928] hover:bg-[#FFF5DF]'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-slate-950/40 flex items-center justify-center text-[10px]">3</span>
-              <span>Track Status</span>
+              <span className="w-5 h-5 rounded-full bg-[#5C3928] text-[#FFFDF7] flex items-center justify-center text-[10px] font-bold">3</span>
+              <span>3. Track Status</span>
             </button>
           </div>
 
@@ -117,30 +154,40 @@ export function App() {
             {currentTab === 'apply' && (
               <button
                 type="button"
-                onClick={() => setCurrentTab('home')}
-                className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer"
+                onClick={() => {
+                  setCurrentTab('home');
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                  document.documentElement.scrollTop = 0;
+                  document.body.scrollTop = 0;
+                }}
+                className="px-4 py-2 rounded-xl bg-[#FFFDF7] hover:bg-[#FFF5DF] text-[#5C3928] text-xs font-black uppercase font-cartoon border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928] flex items-center gap-1.5 transition-all cursor-pointer"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ArrowLeft className="w-3.5 h-3.5 stroke-[3]" />
                 <span>Back to Role Selection</span>
               </button>
             )}
             {currentTab === 'home' && firstChoice && (
               <button
                 type="button"
-                onClick={() => setCurrentTab('apply')}
-                className="px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black flex items-center gap-1.5 shadow-md transition-all cursor-pointer hover:scale-105"
+                onClick={() => {
+                  setCurrentTab('apply');
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                  document.documentElement.scrollTop = 0;
+                  document.body.scrollTop = 0;
+                }}
+                className="px-5 py-2 rounded-xl bg-[#527A58] hover:bg-[#436749] text-white text-xs font-black uppercase font-cartoon flex items-center gap-1.5 border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928] transition-all cursor-pointer hover:scale-105 animate-step-blink"
               >
-                <span>Proceed to Form</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>2. Personal Details</span>
+                <ArrowRight className="w-4 h-4 stroke-[3]" />
               </button>
             )}
             {currentTab === 'track' && (
               <button
                 type="button"
                 onClick={() => setCurrentTab('home')}
-                className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[#FFFDF7] hover:bg-[#FFF5DF] text-[#5C3928] text-xs font-black uppercase font-cartoon border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928] flex items-center gap-1.5 transition-all cursor-pointer"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ArrowLeft className="w-3.5 h-3.5 stroke-[3]" />
                 <span>Back to Home</span>
               </button>
             )}
@@ -150,9 +197,9 @@ export function App() {
 
       {/* RECRUITMENT CLOSED BANNER IF APPLICABLE */}
       {!windowStatus.isOpen && (
-        <div className="bg-gradient-to-r from-rose-950 via-slate-900 to-rose-950 border-b border-rose-500/50 py-3 px-4 text-center">
-          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-rose-200 text-xs font-bold">
-            <Lock className="w-4 h-4 text-rose-400" />
+        <div className="bg-[#FFF8F0] border-b-2 border-[#D96B4C] py-3 px-4 text-center">
+          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-[#5C3928] text-xs font-black font-cartoon">
+            <Lock className="w-4 h-4 text-[#D96B4C]" />
             <span>{windowStatus.message} Existing applicants can still track status. Admins can manually reopen.</span>
           </div>
         </div>
@@ -163,83 +210,129 @@ export function App() {
         {/* HOME & TEAM EXPLORATION VIEW */}
         {currentTab === 'home' && (
           <div>
-            {/* HERO SECTION */}
-            <section className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center overflow-hidden">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/10 via-violet-500/10 to-pink-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+            {/* HERO SECTION — WE BARE BEARS ANIMATED CARTOON ENVIRONMENT */}
+            <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-2 border-[#5C3928]/20 bg-gradient-to-b from-[#FFF5DF]/60 via-[#FFFDF7] to-[#FFFDF7] overflow-hidden">
+              {/* Soft decorative clouds & ambient circles */}
+              <div className="absolute top-8 left-10 w-36 h-14 bg-white/80 rounded-full blur-xs -z-10 pointer-events-none animate-bear-float"></div>
+              <div className="absolute top-20 right-16 w-48 h-16 bg-white/70 rounded-full blur-xs -z-10 pointer-events-none animate-bear-float"></div>
+              <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-[#527A58]/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+              <div className="absolute -top-10 -right-10 w-80 h-80 bg-[#B9DDE2]/25 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-              <div className="flex justify-center mb-6">
-                <NeuraMorphixLogo size={80} />
-              </div>
+              <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+                {/* Left Hero Content */}
+                <div className="flex-1 text-center lg:text-left space-y-6 max-w-2xl">
+                  {/* Comic Pill Badge */}
+                  <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-[#FFF5DF] text-[#5C3928] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928] font-cartoon">
+                    <NeuraMorphixLogo size={24} />
+                    <span className="font-black text-xs sm:text-sm uppercase tracking-wider">
+                      NeuraMorphix Recruitment 2026
+                    </span>
+                  </div>
 
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 shadow-inner">
-                <Sparkles className="w-3.5 h-3.5" />
-                NeuraMorphix Recruitment 2026
-              </div>
+                  {/* High-Impact Cartoon Title */}
+                  <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-[#3D2316] font-cartoon leading-[108%] uppercase">
+                    Shape the Future of <br />
+                    <span className="text-[#527A58]">AI &amp; Intelligent</span> <br />
+                    <span className="text-[#D96B4C]">Technologies</span>
+                  </h1>
 
-              <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
-                Shape the Future of <br />
-                <span className="glow-text">AI & Intelligent Technologies</span>
-              </h1>
+                  {/* Subtitle Description */}
+                  <p className="text-[#5C3928] text-base sm:text-lg font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Join NeuraMorphix team pushing boundaries in Artificial Intelligence, Web/App Development, IoT, UI/UX, Hardware, Research, and Operations.
+                  </p>
 
-              <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-                Join NeuraMorphix's multidisciplinary teams pushing boundaries in Artificial Intelligence, Web/App Development, IoT, UI/UX, Hardware, Research, and Operations.
-              </p>
+                  {/* Preserved Buttons with Tactile Cartoon Styling */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    {windowStatus.isOpen ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const el = document.getElementById('roles-section');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#527A58] hover:bg-[#436749] text-white font-black text-sm uppercase tracking-wider font-cartoon flex items-center justify-center gap-2 border-[3px] border-[#5C3928] shadow-[5px_5px_0px_#5C3928] hover:scale-105 transition-all cursor-pointer"
+                      >
+                        <span>Select Role Preferences &amp; Apply</span>
+                        <ArrowRight className="w-4 h-4 stroke-[3]" />
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setCurrentTab('track')}
+                        className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#FFF5DF] text-[#5C3928] font-black text-sm uppercase tracking-wider font-cartoon flex items-center justify-center gap-2 border-2 border-[#5C3928] shadow-[4px_4px_0px_#5C3928]"
+                      >
+                        <Search className="w-4 h-4" />
+                        <span>Track Existing Application Status</span>
+                      </button>
+                    )}
 
-              <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4">
-                {windowStatus.isOpen ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById('roles-section');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(56,189,248,0.35)] transition-transform hover:scale-105"
-                  >
-                    Select Role Preferences & Apply
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setCurrentTab('track')}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-slate-800 text-slate-300 font-extrabold text-sm flex items-center justify-center gap-2 border border-slate-700"
-                  >
-                    Track Existing Application Status
-                    <Search className="w-4 h-4" />
-                  </button>
-                )}
+                    <button
+                      type="button"
+                      onClick={() => setCurrentTab('track')}
+                      className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-[#FFFDF7] hover:bg-[#FFF5DF] text-[#5C3928] font-black text-sm uppercase tracking-wider font-cartoon flex items-center justify-center gap-2 border-2 border-[#5C3928] shadow-[4px_4px_0px_#5C3928] transition-all cursor-pointer"
+                    >
+                      <Search className="w-4 h-4 text-[#527A58]" />
+                      <span>Check Application Status</span>
+                    </button>
+                  </div>
 
-                <button
-                  type="button"
-                  onClick={() => setCurrentTab('track')}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl glass-panel text-slate-200 font-semibold text-sm hover:border-cyan-400/50 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Search className="w-4 h-4 text-cyan-400" />
-                  Check Application Status
-                </button>
-              </div>
+                  {/* Recruitment Info Highlights Pill Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 text-left">
+                    <div className="p-4 rounded-3xl bg-[#FFF5DF] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+                      <Calendar className="w-5 h-5 text-[#527A58] mb-1" />
+                      <h3 className="text-xs font-black text-[#3D2316] font-cartoon uppercase">Recruitment Date</h3>
+                      <p className="text-[11px] text-[#5C3928] font-medium mt-0.5">05 Sep – 18 Sep 2026</p>
+                    </div>
 
-              {/* Recruitment Info Highlights */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16 text-left">
-                <div className="p-5 rounded-2xl glass-panel border-cyan-500/20">
-                  <Calendar className="w-6 h-6 text-cyan-400 mb-2" />
-                  <h3 className="text-sm font-bold text-white">Recruitment Date</h3>
-                  <p className="text-xs text-slate-400 mt-1">05 September 2026 – 18 September 2026</p>
+                    <div className="p-4 rounded-3xl bg-[#FFF5DF] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+                      <Award className="w-5 h-5 text-[#D96B4C] mb-1" />
+                      <h3 className="text-xs font-black text-[#3D2316] font-cartoon uppercase">Dual Role Choice</h3>
+                      <p className="text-[11px] text-[#5C3928] font-medium mt-0.5">1st &amp; 2nd Preference across 10 squads.</p>
+                    </div>
+
+                    <div className="p-4 rounded-3xl bg-[#FFF5DF] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+                      <ShieldCheck className="w-5 h-5 text-[#527A58] mb-1" />
+                      <h3 className="text-xs font-black text-[#3D2316] font-cartoon uppercase">Automated Emails</h3>
+                      <p className="text-[11px] text-[#5C3928] font-medium mt-0.5">Automated status engine via Gmail.</p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="p-5 rounded-2xl glass-panel border-amber-500/20">
-                  <Award className="w-6 h-6 text-amber-400 mb-2" />
-                  <h3 className="text-sm font-bold text-white">Dual Role Choice System</h3>
-                  <p className="text-xs text-slate-400 mt-1">Select 1st Preference & 2nd Preference across 10 specialized teams.</p>
-                </div>
-
-                <div className="p-5 rounded-2xl glass-panel border-emerald-500/20">
-                  <ShieldCheck className="w-6 h-6 text-emerald-400 mb-2" />
-                  <h3 className="text-sm font-bold text-white">Automated Notifications</h3>
-                  <p className="text-xs text-slate-400 mt-1">Receive immediate status updates via automated email engine.</p>
+                {/* Right: WE BARE BEARS HERO MASCOT ARTWORK */}
+                <div className="flex-shrink-0 flex flex-col items-center justify-center">
+                  <div className="p-6 sm:p-8 rounded-[40px] bg-gradient-to-b from-[#FFFDF7] to-[#FFF5DF] border-[3px] border-[#5C3928] shadow-[0_12px_32px_rgba(92,57,40,0.12),8px_8px_0px_#5C3928] relative">
+                    <WeBareBearsMascot
+                      pose="bear_stack"
+                      size="hero"
+                      showSpeechBubble={true}
+                      speakerName="Bear Stack"
+                      customQuote="Welcome to NeuraMorphix! Ready to build amazing tech together?"
+                      speechPosition="top"
+                    />
+                  </div>
                 </div>
               </div>
             </section>
+
+            {/* LIVE WE BARE BEARS TICKER */}
+            <div className="w-full overflow-hidden bg-[#527A58] text-white py-3.5 border-b-[3px] border-[#5C3928] font-cartoon font-black text-xs sm:text-sm tracking-wider uppercase select-none">
+              <div className="flex animate-marquee whitespace-nowrap gap-8">
+                <span className="flex items-center gap-2">GRIZZLY &bull; PANDA &bull; ICE BEAR</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+                <span className="flex items-center gap-2 text-[#FFF5DF]">NEURAMORPHIX RECRUITMENT 2026 ACTIVE</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+                <span className="flex items-center gap-2 text-[#B9DDE2]">DUAL PREFERENCE SQUAD SELECTION</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+                <span className="flex items-center gap-2 text-white">05 SEP – 18 SEP 2026</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+                <span className="flex items-center gap-2 text-[#FFF5DF]">AI/ML &bull; FULL STACK &bull; MOBILE &bull; IOT &bull; UI/UX</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+                <span className="flex items-center gap-2">GRIZZLY &bull; PANDA &bull; ICE BEAR</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+                <span className="flex items-center gap-2 text-[#FFF5DF]">NEURAMORPHIX RECRUITMENT 2026 ACTIVE</span>
+                <span className="text-[#FFF5DF]/60">•</span>
+              </div>
+            </div>
 
             {/* ROLE SELECTION SECTION */}
             <RoleSelectionSection
@@ -251,6 +344,53 @@ export function App() {
               onClearPreferences={handleClearPreferences}
               onProceedToForm={handleProceedToForm}
             />
+
+            {/* 6-PHASE SELECTION ROADMAP */}
+            <SelectionRoadmap />
+
+            {/* FAQ SECTION */}
+            <FAQSection />
+
+            {/* FINAL FULL-WIDTH WE BARE BEARS CTA BANNER */}
+            <section className="py-16 px-4 sm:px-6 lg:px-8 border-t-[3px] border-[#5C3928] bg-gradient-to-r from-[#527A58] via-[#29483A] to-[#527A58] text-white">
+              <div className="max-w-5xl mx-auto rounded-[36px] bg-[#FFF5DF] border-[3px] border-[#5C3928] p-8 sm:p-12 shadow-[8px_8px_0px_#5C3928] flex flex-col md:flex-row items-center justify-between gap-8 text-[#3D2316]">
+                <div className="space-y-4 text-center md:text-left flex-1">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#527A58] text-white text-xs font-black uppercase font-cartoon border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928]">
+                    <NeuraMorphixLogo size={18} />
+                    <span>Ready to Explore NeuraMorphix?</span>
+                  </div>
+                  <h3 className="text-3xl sm:text-4xl font-black font-cartoon uppercase tracking-tight">
+                    Join the NeuraMorphix Community!
+                  </h3>
+                  <p className="text-sm text-[#5C3928] font-medium max-w-lg">
+                    Select your preferred squads, fill out your candidate dossier, and embark on this wonderful tech journey with Grizzly, Panda, and Ice Bear.
+                  </p>
+                  <div className="pt-2 flex flex-wrap gap-4 justify-center md:justify-start">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById('roles-section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      className="px-8 py-4 rounded-2xl bg-[#527A58] hover:bg-[#436749] text-white font-black text-sm uppercase tracking-wider font-cartoon border-[3px] border-[#5C3928] shadow-[4px_4px_0px_#5C3928] hover:scale-105 transition-all cursor-pointer"
+                    >
+                      CHOOSE SQUADS NOW →
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentTab('track')}
+                      className="px-6 py-4 rounded-2xl bg-[#FFFDF7] hover:bg-white text-[#5C3928] font-black text-sm uppercase tracking-wider font-cartoon border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928] transition-all cursor-pointer"
+                    >
+                      TRACK YOUR STATUS
+                    </button>
+                  </div>
+                </div>
+
+                <div className="shrink-0 flex justify-center">
+                  <WeBareBearsMascot pose="trio_celebration" size="sm" showSpeechBubble={false} />
+                </div>
+              </div>
+            </section>
           </div>
         )}
 
@@ -259,20 +399,22 @@ export function App() {
           <div>
             {!firstChoice ? (
               <div className="max-w-2xl mx-auto py-16 px-4 text-center space-y-6">
-                <div className="p-8 rounded-2xl glass-panel border-amber-500/30 space-y-4">
-                  <span className="px-3 py-1 rounded-full bg-amber-950 text-amber-300 text-xs font-bold uppercase">
+                <div className="p-8 rounded-[36px] bg-[#FFF5DF] border-[3px] border-[#5C3928] shadow-[8px_8px_0px_#5C3928] space-y-4">
+                  <span className="px-4 py-1.5 rounded-full bg-[#D96B4C] text-white text-xs font-black uppercase font-cartoon border-2 border-[#5C3928]">
                     1st Choice Role Required
                   </span>
-                  <h2 className="text-2xl font-bold text-white">Please Select Your Compulsory 1st Role Choice</h2>
-                  <p className="text-sm text-slate-300">
+                  <h2 className="text-2xl sm:text-3xl font-black text-[#3D2316] font-cartoon uppercase">
+                    Please Select Your Compulsory 1st Role Choice
+                  </h2>
+                  <p className="text-sm text-[#5C3928] font-medium">
                     Before filling out your personal details, you must select your 🥇 1st Choice team preference (2nd Choice is optional).
                   </p>
                   <button
                     type="button"
                     onClick={() => setCurrentTab('home')}
-                    className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-lg inline-flex items-center gap-2 cursor-pointer"
+                    className="px-6 py-3 rounded-2xl bg-[#527A58] hover:bg-[#436749] text-white font-black text-xs uppercase tracking-wider font-cartoon border-2 border-[#5C3928] shadow-[4px_4px_0px_#5C3928] inline-flex items-center gap-2 cursor-pointer"
                   >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-4 h-4 stroke-[3]" />
                     Go to Interactive Role Selector
                   </button>
                 </div>

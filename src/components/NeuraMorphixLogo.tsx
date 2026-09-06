@@ -6,7 +6,7 @@ interface NeuraMorphixLogoProps {
 }
 
 export const NeuraMorphixLogo: React.FC<NeuraMorphixLogoProps> = ({
-  className = 'w-10 h-10',
+  className = '',
   size = 40,
 }) => {
   return (
@@ -16,7 +16,7 @@ export const NeuraMorphixLogo: React.FC<NeuraMorphixLogoProps> = ({
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${className} drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] transition-transform duration-300 hover:scale-105`}
+      className={`${className} drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] transition-transform duration-300 hover:scale-105 select-none`}
     >
       <defs>
         {/* Main Ribbon Gradient */}

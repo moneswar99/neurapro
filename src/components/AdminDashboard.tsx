@@ -12,6 +12,7 @@ import { DatabaseService } from '../services/db';
 import { EmailService } from '../services/email';
 import { BackendApiService } from '../services/api';
 import { NeuraMorphixLogo } from './NeuraMorphixLogo';
+import { WeBareBearsMascot } from './WeBareBearsMascot';
 import {
   Users,
   Search,
@@ -362,154 +363,159 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
       <div className="max-w-lg mx-auto py-10 px-4 sm:px-6">
         {/* Toast Notification */}
         {toastMsg && (
-          <div className="fixed bottom-6 right-6 z-50 p-4 rounded-xl bg-slate-900 border border-cyan-500 text-cyan-200 text-xs font-semibold shadow-2xl flex items-center gap-3 animate-fadeIn">
-            <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+          <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] text-[#5C3928] text-xs font-cartoon shadow-[4px_4px_0px_#5C3928] flex items-center gap-3 animate-fadeIn">
+            <Sparkles className="w-4 h-4 text-[#D96B4C] shrink-0" />
             <span>{toastMsg}</span>
           </div>
         )}
 
-        <div className="glass-panel p-8 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden space-y-6">
-          {/* Ambient Glow Background Accent */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-          {/* Logo & Header */}
+        <div className="bear-card p-8 rounded-[28px] bg-[#FFF5DF] border-3 border-[#5C3928] shadow-[6px_6px_0px_#5C3928] relative overflow-hidden space-y-6">
+          {/* Logo & Mascot Header */}
           <div className="text-center space-y-3">
-            <div className="flex justify-center mb-2">
-              <NeuraMorphixLogo size={56} />
+            <div className="flex justify-center mb-1">
+              <NeuraMorphixLogo size={54} />
             </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              NeuraMorphix Access Portal
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border-2 border-[#5C3928] text-[#5C3928] text-[11px] font-cartoon uppercase tracking-wider shadow-[2px_2px_0px_#5C3928]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#527A58]" />
+              NeuraMorphix Recruiter Portal
             </div>
-            <h2 className="text-2xl font-black text-white tracking-tight">Recruiter Sign In</h2>
-            <p className="text-xs text-slate-400">
-              Enter your authorized recruiter or employee credentials to access management dashboard.
+            <h2 className="text-2xl font-cartoon font-bold text-[#5C3928] tracking-tight">Recruiter Sign In</h2>
+            <p className="text-xs text-[#A96F45] font-medium">
+              Enter your authorized recruiter or employee credentials to access the recruitment management dashboard.
             </p>
           </div>
 
+          <div className="flex justify-center -my-1">
+            <WeBareBearsMascot
+              variant="ice_bear"
+              size="sm"
+              speechBubble="Ice Bear requires credentials before granting dashboard access."
+            />
+          </div>
+
           <div className="space-y-6 animate-fadeIn">
-              {/* Error Alert */}
-              {authError && (
-                <div className="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500/50 text-rose-200 text-xs flex items-start gap-2.5 animate-fadeIn">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                  <span className="leading-snug">{authError}</span>
-                </div>
-              )}
+            {/* Error Alert */}
+            {authError && (
+              <div className="p-3.5 rounded-2xl bg-[#FFEBEE] border-2 border-[#C62828] text-[#C62828] text-xs flex items-start gap-2.5 animate-fadeIn shadow-[2px_2px_0px_#C62828]">
+                <AlertCircle className="w-4 h-4 text-[#C62828] shrink-0 mt-0.5" />
+                <span className="leading-snug font-medium">{authError}</span>
+              </div>
+            )}
 
-              {/* Login Form */}
-              <form onSubmit={handleLoginSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Employee / Admin Email Address
-                  </label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="email"
-                      value={loginEmail}
-                      onChange={(e) => setLoginEmail(e.target.value)}
-                      placeholder="moni@neuramophrix.com"
-                      required
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
-                    />
-                  </div>
+            {/* Login Form */}
+            <form onSubmit={handleLoginSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-cartoon text-[#5C3928] mb-1.5 uppercase">
+                  Employee / Admin Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-[#A96F45] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="email"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    placeholder="moni@neuramophrix.com"
+                    required
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border-2 border-[#5C3928] text-[#5C3928] placeholder-[#A96F45]/50 text-sm focus:outline-none focus:ring-4 focus:ring-[#527A58]/20 transition-all"
+                  />
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Employee Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      value={loginPassword}
-                      onChange={(e) => setLoginPassword(e.target.value)}
-                      placeholder="Enter password (e.g. admin123)"
-                      required
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
-                    >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoggingIn}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-sm shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2"
-                >
-                  {isLoggingIn ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
-                      <span>Authenticating Employee...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Sign In as Employee</span>
-                      <ArrowRight className="w-4 h-4 text-slate-950" />
-                    </>
-                  )}
-                </button>
-              </form>
-
-              {/* Quick Fill Credentials Helper Box */}
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2.5">
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  <Key className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Employee Demo Accounts</span>
-                </div>
-                <p className="text-[11px] text-slate-400 leading-normal">
-                  Click any employee account below to auto-fill credentials:
-                </p>
-                <div className="flex flex-col gap-2">
+              <div>
+                <label className="block text-xs font-cartoon text-[#5C3928] mb-1.5 uppercase">
+                  Employee Password
+                </label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 text-[#A96F45] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    placeholder="Enter password (e.g. admin123)"
+                    required
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-white border-2 border-[#5C3928] text-[#5C3928] placeholder-[#A96F45]/50 text-sm focus:outline-none focus:ring-4 focus:ring-[#527A58]/20 transition-all"
+                  />
                   <button
                     type="button"
-                    onClick={() => {
-                      setLoginEmail('moni@neuramophrix.com');
-                      setLoginPassword('admin123');
-                      setAuthError(null);
-                    }}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-cyan-500/40 hover:border-cyan-400 text-left flex items-center justify-between group transition-all"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A96F45] hover:text-[#5C3928] transition-colors"
                   >
-                    <div>
-                      <div className="text-xs font-bold text-cyan-300 group-hover:text-cyan-200">
-                        moni@neuramophrix.com
-                      </div>
-                      <div className="text-[10px] text-slate-400">Role: Executive Admin / Employee</div>
-                    </div>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 font-mono">
-                      admin123
-                    </span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setLoginEmail('recruitment.lead@neuramorphix.org');
-                      setLoginPassword('admin123');
-                      setAuthError(null);
-                    }}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-left flex items-center justify-between group transition-all"
-                  >
-                    <div>
-                      <div className="text-xs font-bold text-slate-200 group-hover:text-white">
-                        recruitment.lead@neuramorphix.org
-                      </div>
-                      <div className="text-[10px] text-slate-400">Role: Lead Recruiter (Dr. Vance)</div>
-                    </div>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-400 font-mono">
-                      admin123
-                    </span>
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
+
+              <button
+                type="submit"
+                disabled={isLoggingIn}
+                className="bear-btn-primary w-full py-3 rounded-2xl bg-[#527A58] hover:bg-[#436548] text-white font-cartoon text-sm shadow-[3px_3px_0px_#5C3928] border-2 border-[#5C3928] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {isLoggingIn ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                    <span>Authenticating Employee...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In as Employee</span>
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Quick Fill Credentials Helper Box */}
+            <div className="p-4 rounded-2xl bg-white border-2 border-[#5C3928] space-y-2.5 shadow-[2px_2px_0px_#5C3928]">
+              <div className="flex items-center gap-2 text-xs font-cartoon text-[#5C3928] uppercase tracking-wider">
+                <Key className="w-3.5 h-3.5 text-[#D96B4C]" />
+                <span>Employee Demo Accounts</span>
+              </div>
+              <p className="text-[11px] text-[#A96F45] leading-normal font-medium">
+                Click any employee account below to auto-fill credentials:
+              </p>
+              <div className="flex flex-col gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLoginEmail('moni@neuramophrix.com');
+                    setLoginPassword('admin123');
+                    setAuthError(null);
+                  }}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF7] border-2 border-[#5C3928] hover:border-[#527A58] text-left flex items-center justify-between group transition-all"
+                >
+                  <div>
+                    <div className="text-xs font-bold text-[#5C3928] group-hover:text-[#527A58]">
+                      moni@neuramophrix.com
+                    </div>
+                    <div className="text-[10px] text-[#A96F45]">Role: Executive Admin / Employee</div>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-lg bg-[#FFF5DF] border border-[#5C3928] text-[#5C3928] font-mono font-bold">
+                    admin123
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLoginEmail('recruitment.lead@neuramorphix.org');
+                    setLoginPassword('admin123');
+                    setAuthError(null);
+                  }}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF7] border-2 border-[#5C3928] hover:border-[#527A58] text-left flex items-center justify-between group transition-all"
+                >
+                  <div>
+                    <div className="text-xs font-bold text-[#5C3928] group-hover:text-[#527A58]">
+                      recruitment.lead@neuramorphix.org
+                    </div>
+                    <div className="text-[10px] text-[#A96F45]">Role: Lead Recruiter (Dr. Vance)</div>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-lg bg-[#FFF5DF] border border-[#5C3928] text-[#5C3928] font-mono font-bold">
+                    admin123
+                  </span>
+                </button>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     );
@@ -519,23 +525,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
     <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       {/* Toast Notification */}
       {toastMsg && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-xl bg-slate-900 border border-cyan-500 text-cyan-200 text-xs font-semibold shadow-2xl flex items-center gap-3 animate-fadeIn">
-          <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] text-[#5C3928] text-xs font-cartoon shadow-[4px_4px_0px_#5C3928] flex items-center gap-3 animate-fadeIn">
+          <Sparkles className="w-4 h-4 text-[#D96B4C] shrink-0" />
           <span>{toastMsg}</span>
         </div>
       )}
 
       {/* Admin Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-800">
+      <div className="bear-card p-6 rounded-[28px] bg-[#FFF5DF] border-3 border-[#5C3928] shadow-[4px_4px_0px_#5C3928] mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 text-[10px] font-bold uppercase border border-cyan-500/30">
+            <span className="px-3 py-1 rounded-full bg-white text-[#5C3928] text-[10px] font-cartoon uppercase border-2 border-[#5C3928] shadow-[1px_1px_0px_#5C3928]">
               Recruitment Team Portal
             </span>
-            <span className="text-xs text-slate-400">Logged in: <strong className="text-white">{adminUser}</strong></span>
+            <span className="text-xs text-[#A96F45]">Logged in: <strong className="text-[#5C3928]">{adminUser}</strong></span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1">
-            NeuraMorphix <span className="glow-text">Recruitment Dashboard</span>
+          <h1 className="text-2xl sm:text-3xl font-cartoon text-[#5C3928] tracking-tight mt-1.5">
+            NeuraMorphix <span className="text-[#D96B4C]">Recruitment Dashboard</span>
           </h1>
         </div>
 
@@ -547,7 +553,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               refreshData();
               showToast('Reset database to default seed data.');
             }}
-            className="px-3 py-2 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 flex items-center gap-1.5"
+            className="bear-btn-primary px-3.5 py-2 rounded-xl text-xs font-cartoon bg-white hover:bg-[#FFFDF7] text-[#5C3928] border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928] flex items-center gap-1.5 cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Reset Seed Data
@@ -556,7 +562,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
           <button
             type="button"
             onClick={handleLogout}
-            className="px-3 py-2 rounded-xl text-xs font-semibold bg-rose-950/60 text-rose-300 hover:bg-rose-900 border border-rose-800 flex items-center gap-1.5"
+            className="bear-btn-primary px-3.5 py-2 rounded-xl text-xs font-cartoon bg-[#FFEBEE] hover:bg-[#FFCDD2] text-[#C62828] border-2 border-[#C62828] shadow-[2px_2px_0px_#C62828] flex items-center gap-1.5 cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             Lock Portal
@@ -565,14 +571,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex flex-wrap gap-2 mb-8 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
+      <div className="flex flex-wrap gap-2 mb-8 bg-[#FFF5DF] p-2 rounded-2xl border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
         <button
           type="button"
           onClick={() => setActiveTab('analytics')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-5 py-2.5 rounded-xl text-xs font-cartoon transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'analytics'
-              ? 'bg-cyan-500 text-slate-950 shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#527A58] text-white shadow-sm border-2 border-[#5C3928]'
+              : 'text-[#5C3928] hover:bg-[#E5D7B7]/60'
           }`}
         >
           <Sliders className="w-4 h-4" />
@@ -582,10 +588,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         <button
           type="button"
           onClick={() => setActiveTab('applicants')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-5 py-2.5 rounded-xl text-xs font-cartoon transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'applicants'
-              ? 'bg-cyan-500 text-slate-950 shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#527A58] text-white shadow-sm border-2 border-[#5C3928]'
+              : 'text-[#5C3928] hover:bg-[#E5D7B7]/60'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -595,10 +601,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         <button
           type="button"
           onClick={() => setActiveTab('email_settings')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-5 py-2.5 rounded-xl text-xs font-cartoon transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'email_settings'
-              ? 'bg-cyan-500 text-slate-950 shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#527A58] text-white shadow-sm border-2 border-[#5C3928]'
+              : 'text-[#5C3928] hover:bg-[#E5D7B7]/60'
           }`}
         >
           <Mail className="w-4 h-4" />
@@ -608,10 +614,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         <button
           type="button"
           onClick={() => setActiveTab('config')}
-          className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-5 py-2.5 rounded-xl text-xs font-cartoon transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'config'
-              ? 'bg-cyan-500 text-slate-950 shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#527A58] text-white shadow-sm border-2 border-[#5C3928]'
+              : 'text-[#5C3928] hover:bg-[#E5D7B7]/60'
           }`}
         >
           <Settings className="w-4 h-4" />
@@ -624,40 +630,40 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         <div className="space-y-8 animate-fadeIn">
           {/* Metric Cards Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            <div className="p-5 rounded-2xl glass-panel border-cyan-500/20">
-              <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">Total Applications</div>
-              <div className="text-3xl font-black text-white">{totalApps}</div>
-              <div className="text-[11px] text-cyan-400 mt-1 font-medium">Logged candidates</div>
+            <div className="p-5 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+              <div className="text-[10px] uppercase font-cartoon text-[#A96F45] mb-1">Total Applications</div>
+              <div className="text-3xl font-cartoon text-[#5C3928]">{totalApps}</div>
+              <div className="text-[11px] text-[#527A58] mt-1 font-semibold">Logged candidates</div>
             </div>
 
-            <div className="p-5 rounded-2xl glass-panel border-amber-500/20">
-              <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">Pending Review</div>
-              <div className="text-3xl font-black text-amber-300">{pendingApps}</div>
-              <div className="text-[11px] text-amber-400/80 mt-1 font-medium">Awaiting evaluation</div>
+            <div className="p-5 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+              <div className="text-[10px] uppercase font-cartoon text-[#A96F45] mb-1">Pending Review</div>
+              <div className="text-3xl font-cartoon text-[#F59E0B]">{pendingApps}</div>
+              <div className="text-[11px] text-[#D97706] mt-1 font-semibold">Awaiting evaluation</div>
             </div>
 
-            <div className="p-5 rounded-2xl glass-panel border-blue-500/20">
-              <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">Shortlisted</div>
-              <div className="text-3xl font-black text-blue-300">{shortlistedApps}</div>
-              <div className="text-[11px] text-blue-400/80 mt-1 font-medium">Passed screening</div>
+            <div className="p-5 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+              <div className="text-[10px] uppercase font-cartoon text-[#A96F45] mb-1">Shortlisted</div>
+              <div className="text-3xl font-cartoon text-[#2B2D42]">{shortlistedApps}</div>
+              <div className="text-[11px] text-[#2B2D42]/80 mt-1 font-semibold">Passed screening</div>
             </div>
 
-            <div className="p-5 rounded-2xl glass-panel border-purple-500/20">
-              <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">Interview</div>
-              <div className="text-3xl font-black text-purple-300">{interviewApps}</div>
-              <div className="text-[11px] text-purple-400/80 mt-1 font-medium">Scheduled interaction</div>
+            <div className="p-5 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+              <div className="text-[10px] uppercase font-cartoon text-[#A96F45] mb-1">Interview</div>
+              <div className="text-3xl font-cartoon text-[#7E22CE]">{interviewApps}</div>
+              <div className="text-[11px] text-[#7E22CE]/80 mt-1 font-semibold">Scheduled interaction</div>
             </div>
 
-            <div className="p-5 rounded-2xl glass-panel border-emerald-500/20">
-              <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">Accepted</div>
-              <div className="text-3xl font-black text-emerald-300">{acceptedApps}</div>
-              <div className="text-[11px] text-emerald-400/80 mt-1 font-medium">Selected members</div>
+            <div className="p-5 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+              <div className="text-[10px] uppercase font-cartoon text-[#A96F45] mb-1">Accepted</div>
+              <div className="text-3xl font-cartoon text-[#2E7D32]">{acceptedApps}</div>
+              <div className="text-[11px] text-[#2E7D32]/80 mt-1 font-semibold">Selected members</div>
             </div>
 
-            <div className="p-5 rounded-2xl glass-panel border-rose-500/20">
-              <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">Declined</div>
-              <div className="text-3xl font-black text-rose-300">{declinedApps}</div>
-              <div className="text-[11px] text-rose-400/80 mt-1 font-medium">Not selected</div>
+            <div className="p-5 rounded-2xl bg-[#FFFDF7] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928]">
+              <div className="text-[10px] uppercase font-cartoon text-[#A96F45] mb-1">Declined</div>
+              <div className="text-3xl font-cartoon text-[#C62828]">{declinedApps}</div>
+              <div className="text-[11px] text-[#C62828]/80 mt-1 font-semibold">Not selected</div>
             </div>
           </div>
 

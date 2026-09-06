@@ -33,16 +33,16 @@ export const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-slate-900">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t-2 border-[#5C3928]/20">
       <div className="text-center space-y-3 mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold uppercase tracking-wider">
-          <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Clear Signal</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFF5DF] border-2 border-[#5C3928] text-[#5C3928] text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#5C3928] font-cartoon">
+          <HelpCircle className="w-3.5 h-3.5 text-[#527A58]" />
+          <span>HELP &amp; FAQS</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Frequently Asked <span className="glow-text">Questions</span>
+        <h2 className="text-3xl sm:text-5xl font-black text-[#3D2316] tracking-tight font-cartoon uppercase">
+          Frequently Asked <span className="text-[#527A58]">Questions</span>
         </h2>
-        <p className="text-slate-400 text-sm max-w-lg mx-auto">
+        <p className="text-[#5C3928] text-sm max-w-lg mx-auto font-medium">
           Everything you need to know about applying, selection stages, and cohort residency.
         </p>
       </div>
@@ -51,23 +51,26 @@ export const FAQSection: React.FC = () => {
         {faqs.map((faq, idx) => (
           <div
             key={faq.question}
-            className="glass-panel rounded-2xl border border-slate-800/80 overflow-hidden transition-all"
+            className="rounded-[24px] bg-[#FFF5DF] border-2 border-[#5C3928] shadow-[3px_3px_0px_#5C3928] overflow-hidden transition-all"
           >
             <button
               type="button"
               onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-              className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm hover:text-cyan-300 transition-colors"
+              className="w-full p-5 text-left flex items-center justify-between gap-4 font-black text-[#3D2316] text-sm sm:text-base font-cartoon hover:text-[#527A58] transition-colors cursor-pointer"
             >
-              <span>{faq.question}</span>
+              <div className="flex items-center gap-2.5">
+                <span className="text-base">🐾</span>
+                <span>{faq.question}</span>
+              </div>
               <ChevronDown
-                className={`w-4 h-4 text-cyan-400 shrink-0 transition-transform ${
+                className={`w-4 h-4 text-[#527A58] shrink-0 transition-transform ${
                   openIdx === idx ? 'rotate-180' : ''
                 }`}
               />
             </button>
 
             {openIdx === idx && (
-              <div className="px-5 pb-5 text-xs text-slate-300 leading-relaxed border-t border-slate-900 pt-3 animate-fadeIn">
+              <div className="px-5 pb-5 text-xs sm:text-sm text-[#5C3928] leading-relaxed border-t-2 border-dashed border-[#5C3928]/20 pt-3 animate-fadeIn font-medium">
                 {faq.answer}
               </div>
             )}

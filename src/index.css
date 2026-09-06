@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap');
 @import "tailwindcss";
 
-/* Comprehensive Explicit Cursor & Caret Reset */
+/* =========================================================
+   COMPREHENSIVE EXPLICIT CURSOR & CARET RESET
+========================================================= */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -15,11 +18,11 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video, svg, path {
   cursor: default !important;
-  caret-color: transparent !important; /* Hide text caret / blinking bar on non-editable elements */
+  caret-color: transparent !important;
   outline: none !important;
 }
 
-/* Interactive elements strictly use hand pointer cursor */
+/* Interactive elements strictly use pointer cursor */
 button, 
 [role="button"], 
 a, 
@@ -29,7 +32,7 @@ input[type="submit"],
 input[type="button"],
 label[for],
 .clickable,
-.glass-card,
+.bear-card,
 .interactive-badge, 
 .tab-btn {
   cursor: pointer !important;
@@ -39,7 +42,7 @@ label[for],
   outline: none !important;
 }
 
-/* Input fields and textareas strictly use visible text cursor and glowing cyan caret */
+/* Form input fields & textareas strictly use text cursor */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -50,31 +53,37 @@ input[type="date"],
 textarea, 
 [contenteditable="true"] {
   cursor: text !important;
-  caret-color: #38bdf8 !important; /* Visible text caret only inside actual form fields */
+  caret-color: #A96F45 !important;
   user-select: text !important;
   -webkit-user-select: text !important;
 }
 
+/* =========================================================
+   WE BARE BEARS DESIGN SYSTEM & TOKENS
+========================================================= */
 @layer base {
   :root {
-    --bg-dark: #080d1a;
-    --bg-card: rgba(15, 23, 42, 0.75);
-    --border-glow: rgba(56, 189, 248, 0.25);
-    --cyan-glow: #38bdf8;
-    --violet-glow: #818cf8;
-    --gold-glow: #f59e0b;
+    --bear-grizzly: #A96F45;
+    --bear-grizzly-dark: #5C3928;
+    --bear-panda: #2B2D42;
+    --bear-ice: #B9DDE2;
+    --bear-cream: #FFF5DF;
+    --bear-white: #FFFDF7;
+    --bear-forest: #527A58;
+    --bear-coral: #D96B4C;
+    --bear-gold: #F59E0B;
   }
 
   body {
-    background-color: #030712;
-    color: #f3f4f6;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FFFDF7;
+    color: #3D2316;
+    font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
     background-image: 
-      radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
-      radial-gradient(at 90% 10%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
-      radial-gradient(at 50% 90%, rgba(236, 72, 153, 0.05) 0px, transparent 50%);
+      radial-gradient(at 10% 10%, rgba(217, 107, 76, 0.05) 0px, transparent 50%),
+      radial-gradient(at 90% 10%, rgba(82, 122, 88, 0.06) 0px, transparent 50%),
+      radial-gradient(at 50% 90%, rgba(185, 221, 226, 0.12) 0px, transparent 60%);
   }
 
   #root {
@@ -88,74 +97,250 @@ textarea,
   }
 }
 
-/* Custom Utilities */
+/* Typography Helpers */
+.font-cartoon {
+  font-family: 'Fredoka', 'Outfit', cursive, sans-serif;
+}
+
+.font-body {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* We Bare Bears Card & Panel Styles */
+.bear-card,
 .glass-panel {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: #FFFDF7;
+  border: 3px solid #5C3928;
+  border-radius: 28px;
+  box-shadow: 5px 5px 0px #5C3928;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.glass-card {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer !important;
-}
-
-.glass-card:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.25);
-  transform: translateY(-2px);
+.bear-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 7px 7px 0px #5C3928;
 }
 
 .glass-input {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  transition: all 0.2s ease;
-  cursor: text !important;
-  caret-color: #38bdf8 !important;
+  background-color: #FFFFFF !important;
+  border: 2px solid #5C3928 !important;
+  color: #5C3928 !important;
+  border-radius: 16px !important;
+  outline: none !important;
+  font-family: 'Nunito', sans-serif !important;
 }
 
 .glass-input:focus {
-  outline: none;
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+  border-color: #527A58 !important;
+  box-shadow: 0 0 0 3px rgba(82, 122, 88, 0.2) !important;
 }
 
 .glow-text {
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #D96B4C;
+  font-family: 'Fredoka', cursive, sans-serif;
 }
 
-.gold-gradient-text {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* We Bare Bears Button Style */
+.bear-btn-primary {
+  background-color: #527A58;
+  color: #ffffff;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  border: 3px solid #5C3928;
+  border-radius: 20px;
+  box-shadow: 4px 4px 0px #5C3928;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.silver-gradient-text {
-  background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 50%, #64748b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.bear-btn-primary:hover {
+  background-color: #436749;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 5px 5px 0px #5C3928;
+}
+
+.bear-btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0px #5C3928;
+}
+
+.bear-btn-orange {
+  background-color: #D96B4C;
+  color: #ffffff;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  border: 3px solid #5C3928;
+  border-radius: 20px;
+  box-shadow: 4px 4px 0px #5C3928;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bear-btn-orange:hover {
+  background-color: #C25A3D;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 5px 5px 0px #5C3928;
+}
+
+/* We Bare Bears Speech Bubble */
+.speech-bubble-bear {
+  position: relative;
+  background: #FFFDF7;
+  border: 3px solid #5C3928;
+  border-radius: 22px;
+  box-shadow: 4px 4px 0px #5C3928;
+}
+
+.speech-bubble-bear::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 12px 10px 0;
+  border-style: solid;
+  border-color: #5C3928 transparent;
+  display: block;
+  width: 0;
+}
+
+.speech-bubble-bear::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 9px 8px 0;
+  border-style: solid;
+  border-color: #FFFDF7 transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+
+/* Floating & Bouncing Animations */
+@keyframes bearFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.8deg);
+  }
+}
+
+@keyframes bearBreathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.015);
+  }
+}
+
+@keyframes bearBlink {
+  0%, 96%, 100% {
+    transform: scaleY(1);
+  }
+  98% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes leafDrift {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-12px) rotate(15deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-bear-float {
+  animation: bearFloat 4s ease-in-out infinite;
+}
+
+.animate-bear-breathe {
+  animation: bearBreathe 3s ease-in-out infinite;
+}
+
+.animate-bear-blink {
+  animation: bearBlink 5s infinite;
+  transform-origin: center;
+}
+
+.animate-leaf-drift {
+  animation: leafDrift 6s ease-in-out infinite;
+}
+
+@keyframes stepBlink {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(82, 122, 88, 0.7), 3px 3px 0px #5C3928;
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 10px rgba(82, 122, 88, 0), 5px 5px 0px #5C3928;
+    background-color: #3f6044;
+  }
+}
+
+.animate-step-blink {
+  animation: stepBlink 1.3s ease-in-out infinite;
+}
+
+@keyframes pillBlink {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 2px 2px 0px #5C3928;
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 6px rgba(82, 122, 88, 0.3), 4px 4px 0px #5C3928;
+    border-color: #527A58;
+  }
+}
+
+.animate-pill-blink {
+  animation: pillBlink 1.3s ease-in-out infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 26s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #FFF5DF;
+  border-left: 2px solid #5C3928;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
+  background: #A96F45;
+  border: 2px solid #5C3928;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #5C3928;
 }

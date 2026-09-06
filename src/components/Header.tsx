@@ -25,74 +25,76 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onSelectTab }) => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 bg-slate-950/80">
+    <header className="sticky top-0 z-40 w-full bg-[#FFF5DF]/95 border-b-[3px] border-[#5C3928] backdrop-blur-md shadow-[0_4px_16px_rgba(92,57,40,0.08)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
         {/* Brand Logo */}
         <div
           onClick={() => onSelectTab('home')}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
+          className="flex items-center gap-2 sm:gap-3.5 cursor-pointer group shrink-0"
         >
-          <NeuraMorphixLogo size={36} />
+          <NeuraMorphixLogo size={42} />
           <div>
-            <span className="text-base sm:text-xl font-extrabold tracking-wider text-white group-hover:text-cyan-300 transition-colors">
-              NEURAMORPHIX
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-base sm:text-xl font-black tracking-wider text-[#3D2316] font-cartoon uppercase group-hover:text-[#527A58] transition-colors">
+                NEURAMORPHIX
+              </span>
+            </div>
             {/* Full subtitle — desktop only */}
-            <div className="hidden sm:flex items-center gap-2 text-[10px] text-slate-400 font-semibold uppercase tracking-widest">
+            <div className="hidden sm:flex items-center gap-2 text-[10px] text-[#A96F45] font-black uppercase tracking-widest font-cartoon">
               <span>Recruitment 2026</span>
-              <span className="text-cyan-400">•</span>
-              <span className="text-slate-300">05 Sep – 18 Sep 2026</span>
+              <span>•</span>
+              <span className="text-[#5C3928]">05 Sep – 18 Sep 2026</span>
               {timeStr && (
                 <>
-                  <span className="text-cyan-400">•</span>
-                  <span className="text-cyan-300 font-mono font-bold">{timeStr}</span>
+                  <span>•</span>
+                  <span className="text-[#527A58] font-mono font-bold">{timeStr}</span>
                 </>
               )}
             </div>
             {/* Compact — mobile only */}
-            <div className="flex sm:hidden text-[9px] text-slate-400 font-semibold uppercase tracking-wide">
+            <div className="flex sm:hidden text-[9px] text-[#A96F45] font-black uppercase tracking-wide font-cartoon">
               Recruitment 2026
             </div>
           </div>
         </div>
 
         {/* Navigation Tabs — desktop only */}
-        <nav className="hidden md:flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
+        <nav className="hidden md:flex items-center gap-2 bg-[#FFFDF7] p-1.5 rounded-2xl border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928]">
           <button
             type="button"
             onClick={() => onSelectTab('home')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider font-cartoon transition-all cursor-pointer ${
               currentTab === 'home'
-                ? 'bg-cyan-500 text-slate-950 shadow-md'
-                : 'text-slate-300 hover:text-white'
+                ? 'bg-[#527A58] text-white shadow-[2px_2px_0px_#5C3928] scale-105'
+                : 'text-[#5C3928] hover:text-[#3D2316] hover:bg-[#FFF5DF]'
             }`}
           >
-            Explore Teams
+            Explore Squads
           </button>
 
           <button
             type="button"
             onClick={() => onSelectTab('apply')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider font-cartoon transition-all flex items-center gap-1.5 cursor-pointer ${
               currentTab === 'apply'
-                ? 'bg-cyan-500 text-slate-950 shadow-md'
-                : 'text-slate-300 hover:text-white'
+                ? 'bg-[#527A58] text-white shadow-[2px_2px_0px_#5C3928] scale-105'
+                : 'text-[#5C3928] hover:text-[#3D2316] hover:bg-[#FFF5DF]'
             }`}
           >
-            <UserPlus className="w-3.5 h-3.5" />
+            <UserPlus className="w-3.5 h-3.5 stroke-[2.5]" />
             Apply Now
           </button>
 
           <button
             type="button"
             onClick={() => onSelectTab('track')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider font-cartoon transition-all flex items-center gap-1.5 cursor-pointer ${
               currentTab === 'track'
-                ? 'bg-cyan-500 text-slate-950 shadow-md'
-                : 'text-slate-300 hover:text-white'
+                ? 'bg-[#527A58] text-white shadow-[2px_2px_0px_#5C3928] scale-105'
+                : 'text-[#5C3928] hover:text-[#3D2316] hover:bg-[#FFF5DF]'
             }`}
           >
-            <Search className="w-3.5 h-3.5" />
+            <Search className="w-3.5 h-3.5 stroke-[2.5]" />
             Track Status
           </button>
         </nav>
@@ -100,15 +102,15 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onSelectTab }) => {
         {/* Recruitment Status Pill */}
         <div className="flex items-center shrink-0">
           <span
-            className={`px-2.5 sm:px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-extrabold flex items-center gap-1.5 border shadow-inner ${
+            className={`px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider font-cartoon flex items-center gap-1.5 border-2 border-[#5C3928] shadow-[2px_2px_0px_#5C3928] ${
               windowStatus.isOpen
-                ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40'
-                : 'bg-rose-950/80 text-rose-300 border-rose-500/40'
+                ? 'bg-[#527A58] text-white'
+                : 'bg-[#D96B4C] text-white'
             }`}
           >
             <span
-              className={`w-2 h-2 rounded-full shrink-0 ${
-                windowStatus.isOpen ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-rose-400'
+              className={`w-2 h-2 rounded-full shrink-0 border border-white/40 ${
+                windowStatus.isOpen ? 'bg-[#FFFDF7] animate-pulse' : 'bg-[#FFFDF7]'
               }`}
             ></span>
             <span className="hidden sm:inline">{windowStatus.isOpen ? 'RECRUITMENT OPEN' : 'RECRUITMENT CLOSED'}</span>
@@ -118,35 +120,35 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onSelectTab }) => {
       </div>
 
       {/* Mobile bottom nav tabs — only visible on mobile */}
-      <div className="flex md:hidden border-t border-slate-800 bg-slate-950/95">
+      <div className="flex md:hidden border-t-2 border-[#5C3928] bg-[#FFF5DF]">
         <button
           type="button"
           onClick={() => onSelectTab('home')}
-          className={`flex-1 py-2.5 text-[11px] font-bold transition-all flex flex-col items-center gap-0.5 ${
-            currentTab === 'home' ? 'text-cyan-400 border-b-2 border-cyan-400' : 'text-slate-500'
+          className={`flex-1 py-2.5 text-[11px] font-black uppercase font-cartoon transition-all flex flex-col items-center gap-0.5 ${
+            currentTab === 'home' ? 'text-[#527A58] bg-[#FFFDF7] border-b-4 border-[#527A58]' : 'text-[#A96F45]'
           }`}
         >
           <span>🏠</span>
-          <span>Teams</span>
+          <span>Squads</span>
         </button>
         <button
           type="button"
           onClick={() => onSelectTab('apply')}
-          className={`flex-1 py-2.5 text-[11px] font-bold transition-all flex flex-col items-center gap-0.5 ${
-            currentTab === 'apply' ? 'text-cyan-400 border-b-2 border-cyan-400' : 'text-slate-500'
+          className={`flex-1 py-2.5 text-[11px] font-black uppercase font-cartoon transition-all flex flex-col items-center gap-0.5 ${
+            currentTab === 'apply' ? 'text-[#527A58] bg-[#FFFDF7] border-b-4 border-[#527A58]' : 'text-[#A96F45]'
           }`}
         >
-          <UserPlus className="w-4 h-4" />
+          <UserPlus className="w-4 h-4 stroke-[2.5]" />
           <span>Apply</span>
         </button>
         <button
           type="button"
           onClick={() => onSelectTab('track')}
-          className={`flex-1 py-2.5 text-[11px] font-bold transition-all flex flex-col items-center gap-0.5 ${
-            currentTab === 'track' ? 'text-cyan-400 border-b-2 border-cyan-400' : 'text-slate-500'
+          className={`flex-1 py-2.5 text-[11px] font-black uppercase font-cartoon transition-all flex flex-col items-center gap-0.5 ${
+            currentTab === 'track' ? 'text-[#527A58] bg-[#FFFDF7] border-b-4 border-[#527A58]' : 'text-[#A96F45]'
           }`}
         >
-          <Search className="w-4 h-4" />
+          <Search className="w-4 h-4 stroke-[2.5]" />
           <span>Track</span>
         </button>
       </div>
